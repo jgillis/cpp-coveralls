@@ -9,6 +9,10 @@ URL = 'https://coveralls.io/api/v1/jobs'
 
 def post_report(coverage):
     """Post coverage report to coveralls.io."""
+    for q in coverage["source_files"]:
+        for i,_ in enumerate(q["coverage"]):
+            if q["coverage"][i] is not None:
+                  q["coverage"][i] = min(q["coverage"][i],1e9)
     response = requests.post(URL, files={'json_file': json.dumps(coverage)})
     try:
         result = response.json()
