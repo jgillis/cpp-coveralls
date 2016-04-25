@@ -12,7 +12,7 @@ def post_report(coverage):
     for q in coverage["source_files"]:
         for i,_ in enumerate(q["coverage"]):
             if q["coverage"][i] is not None:
-                  q["coverage"][i] = min(q["coverage"][i],1e9)
+                  q["coverage"][i] = min(q["coverage"][i],1e6)
     response = requests.post(URL, files={'json_file': json.dumps(coverage)})
     try:
         result = response.json()
